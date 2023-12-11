@@ -1,0 +1,15 @@
+set a = 5;
+set azis = 69;
+set kerem = "turk";
+set bul = :0;
+print bul;
+print kerem;
+print azis;
+print "hello world";
+print a + azis + 5;
+set arrr = [1,2,3,4,[1,2,3,],8,"kurec",:0,];
+print 1 > 2;
+print arrr;
+read test;
+print test;
+print "hello";
