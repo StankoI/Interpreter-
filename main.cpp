@@ -122,6 +122,26 @@ TEST_CASE("Test RPN Evaluation")
     }
 }
 
+TEST_CASE("Test Tree Evaluation")
+{
+    Parser par;
+
+    std::vector<std::pair<std::string,int>> expressions = {{"((1+2)*3)",9},
+                                                           {"99",99},
+                                                           {"(3*(1+2))",9},
+                                                           {"(((1+1)*(2+3))+8)",18},
+                                                           {"if (1+2) then 3 else 4",3}};    
+    for(std::pair<std::string,int> p : expressions)
+    {
+        std::stringstream e (p.first);
+
+        Expression* t = par.parseExpression(e);
+
+        CHECK(t->eval() == p.second);
+    }
+
+}
+
 
 int main()
 {
@@ -139,7 +159,7 @@ int main()
     //     std::cout << infixToRPN(e) << " ";
     // }
 
-
+    //!
     std::ifstream is("test.stuck");
      if (!is.is_open())
     {
@@ -149,7 +169,9 @@ int main()
     Parser a;
 
     a.readFromFile(is);
+    //!
 
+    // std::cout << std::pow(4, 0.5);
 
     // BaseValue* h = new NumValue(5);
     // NumValue* hprime = dynamic_cast<NumValue*>(h);
@@ -164,6 +186,29 @@ int main()
     //{
     //    NumValue* ktmp = dynamic_cast<NumValue*>(k.value);
     //    ktmp->getValue();
+    //!!
+    // std::string exp = " if (1+2) then 3 else 4";
+    // // getline(is, exp);
+    // std::stringstream expression(exp);
+
+    // char next = expression.peek();
+    // std::string neshto;
+    // while(next != ' ' && next != '(')
+    // {
+    //     neshto+=next;
+    //     expression.get();
+    //     next = expression.peek();
+    // }
+    // std::cout << neshto << " ";
+    // // expression.get();
+
+    // expression.seekg(0);
+
+    // exp = "";
+
+    // getline(expression, exp);
+    // std::cout << exp;
+    //!!
 
 
     // doctest::Context().run();

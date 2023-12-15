@@ -36,6 +36,7 @@ std::istream& operator>>(std::istream& is, Tokenizer::Token& t)
     case '>':
     case '<':
     case '=':
+    case '^':
         t.type = Tokenizer::OPERATOR;
         t.symbol = next;
         is.get();
@@ -63,15 +64,36 @@ std::istream& operator>>(std::istream& is, Tokenizer::Token& t)
     while( next != ' ' && next != '(' && next != ')' && next != '+' 
         && next != '-' && next != '/' && next != ';'
         && next != '*' && next != '<' && next != '>'
-        && next != '=')
+        && next != '=' && next != '^')
     {
         keyWordTemp += next;
         is.get();
         next = is.peek();
     }
-    // is >> t.keyword;
-    t.keyword = keyWordTemp;
 
+    t.keyword = keyWordTemp;
+    
+    //IF
+    if(t.keyword == "if")
+    {
+        t.type = Tokenizer::IF;
+        return is;
+    }
+
+    //THEN
+    if(t.keyword == "then")
+    {
+        t.type = Tokenizer::THEN;
+        return is;
+    }
+
+    if(t.keyword == "else")
+    {
+        t.type = Tokenizer::ELSE;
+        return is;
+    }
+
+    //default
     t.type = Tokenizer::STR;
 
     return is;
@@ -129,6 +151,7 @@ std::ifstream& operator>>(std::ifstream& is, Tokenizer::Token& t)
     case '>':
     case '<':
     case '=':
+    case '^':
         t.type = Tokenizer::OPERATOR;
         t.symbol = next;
         is.get();
@@ -156,7 +179,7 @@ std::ifstream& operator>>(std::ifstream& is, Tokenizer::Token& t)
     while( next != ' ' && next != '(' && next != ')' && next != '+' 
         && next != '-' && next != '/' && next != ';'
         && next != '*' && next != '<' && next != '>'
-        && next != '=')
+        && next != '=' && next != '^')
     {
         keyWordTemp += next;
         is.get();
@@ -165,7 +188,59 @@ std::ifstream& operator>>(std::ifstream& is, Tokenizer::Token& t)
     // is >> t.keyword;
     t.keyword = keyWordTemp;
 
+    t.keyword = keyWordTemp;
+    
+    //IF
+    if(t.keyword == "if")
+    {
+        t.type = Tokenizer::IF;
+        return is;
+    }
+
+    //THEN
+    if(t.keyword == "then")
+    {
+        t.type = Tokenizer::THEN;
+        return is;
+    }
+
+    if(t.keyword == "else")
+    {
+        t.type = Tokenizer::ELSE;
+        return is;
+    }
+
     t.type = Tokenizer::STR;
 
     return is;
+}
+
+Tokenizer::Tokenizer(std::istream &_in):in(_in), peeked(nullptr){} 
+
+typename Tokenizer::Token Tokenizer::getNextToken()
+{
+
+    typename Tokenizer::Token result;
+
+    if (peeked != nullptr)
+    {
+        result = *peeked;
+        delete peeked;
+        peeked = nullptr;
+    } else 
+    {
+        in >> result;
+    }
+
+    return result;
+}
+
+typename Tokenizer::Token Tokenizer::peekToken()
+{
+    if(peeked == nullptr)
+    {
+        peeked = new Token;
+        in >> *peeked;
+    }
+    return *peeked;
 }

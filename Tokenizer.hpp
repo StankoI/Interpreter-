@@ -9,7 +9,7 @@
 class Tokenizer
 {
     public:
-    enum Token_type{OPEN_BRACK, CLOSE_BRACK, OPERATOR, NUMBER, CHAR ,STR, STOP_SYMBOL};
+    enum Token_type{OPEN_BRACK, CLOSE_BRACK, OPERATOR, NUMBER, CHAR ,STR, STOP_SYMBOL, IF, THEN, ELSE};
 
     struct Token
     {
@@ -18,6 +18,15 @@ class Tokenizer
         BaseValue* value;
         std::string keyword;
     };
+
+    Tokenizer(std::istream&);
+
+    Token getNextToken();
+    Token peekToken();
+
+    private:
+    std::istream &in;
+    Token *peeked;
     
 };
 

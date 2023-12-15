@@ -1,4 +1,4 @@
-#include "Tokenizer.hpp"
+#include "ExprTree.hpp"
 #include <set>
 #include <vector>
 
@@ -14,6 +14,8 @@ class Parser
     };
 
     std::vector<Node*> arr;
+
+    Parser();
 
     void readFromFile(std::istream& is);
     
@@ -43,8 +45,19 @@ class Parser
 
     ArrayValue* setArrayHelper(std::istream &is, char &next);
 
+    Expression* parseExpression(std::istream &is);
 
-    //todo Destructor 
+    Expression* parseExpression(Tokenizer &tokens);
+
+    Expression *parseConst(Tokenizer &tokens);
+
+    Expression *parseIfExpression(Tokenizer &tokens);
+
+    Expression *parseParExpression(Tokenizer &tokens);
+
+    void setExistingNode(Node* existingNode,std::istream &is, char &next);
+
+    //todo Destructor, operator=, copyconstructor 
 };
 
 std::string infixToRPN(std::istream &in);
