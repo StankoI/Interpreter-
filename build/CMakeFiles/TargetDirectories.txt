@@ -1,0 +1,3 @@
+D:/c++/SDP/StuckProject/build/CMakeFiles/stuck-app.dir
+D:/c++/SDP/StuckProject/build/CMakeFiles/edit_cache.dir
+D:/c++/SDP/StuckProject/build/CMakeFiles/rebuild_cache.dir
