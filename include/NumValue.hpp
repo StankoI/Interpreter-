@@ -7,17 +7,11 @@ class NumValue : public BaseValue
 {
 private:
     double value;
-
 public:
     NumValue(double _value);
-
-    NumValue *clone();
-
-    double getValue() const;
-
-    void setValue(double newVal);
-
     ~NumValue();
-
+    NumValue *clone();
+    double getValue() const;
+    void setValue(double newVal);
     void print() const;
 };

@@ -1,4 +1,4 @@
-#include "commandInterpreter.hpp"
+#include "Interpreter.hpp"
 #include <iostream>
 #include <cassert>
 
@@ -42,7 +42,7 @@ int main()
         return 1;
     }
 
-    CommandInterpreter a;
+    Interpreter a;
 
     a.readFile(is);
 
@@ -89,8 +89,9 @@ int main()
 
 
     // doctest::Context().run();
-
-
-
+    // todo list : making classes for all setFunc files where i will have set with ':' , '\"' , '[' and this will help with eval
+    // todo to change the names of command to commandInterpreter and the following classes 
+    // todo unit tests
+    
     return 0;
 }

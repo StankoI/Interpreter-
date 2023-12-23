@@ -1,5 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT
-#include "commandInterpreter.hpp"
+#include "Interpreter.hpp"
 #include "doctest.h"
 #include <iostream>
 #include <cassert>

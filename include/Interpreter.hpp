@@ -7,14 +7,14 @@
 #include <sstream>
 #include <vector>
 
-class CommandInterpreter
+class Interpreter
 {
 private:
     std::unordered_map<std::string, Command *> commands;
 
 public:
 
-    CommandInterpreter();
+    Interpreter();
 
     void addCommand(std::string key, Command* value);
 

@@ -2,25 +2,16 @@
 #include "BaseValue.hpp"
 #include <string>
 
-//Клас StringValue който представлява променливи от тип std::string, наследник на BaseValue
-class StringValue: public BaseValue
+// Клас StringValue който представлява променливи от тип std::string, наследник на BaseValue
+class StringValue : public BaseValue
 {
-    private:
+private:
     std::string value;
-
-    public:
-
+public:
     StringValue(std::string _value);
-
-    std::string getValue() const;
-
-    void setValue(std::string newVal);
-
-    StringValue* clone();
-
     ~StringValue();
-
+    std::string getValue() const;
+    void setValue(std::string newVal);
+    StringValue *clone();
     void print() const;
-    
 };
-

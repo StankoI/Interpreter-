@@ -1,24 +1,16 @@
 #pragma once
 #include "BaseValue.hpp"
 
-//Клас BoolValue който представлява променливи от тип bool, наследник на BaseValue
-class BoolValue: public BaseValue
+// Клас BoolValue който представлява променливи от тип bool, наследник на BaseValue
+class BoolValue : public BaseValue
 {
-    private:
+private:
     bool value;
-
-    public:
-
+public:
     BoolValue(bool _value);
-
-    bool getValue() const;
-
-    void setValue(bool newVal);
-
-    BoolValue* clone();
-
     ~BoolValue();
-
+    bool getValue() const;
+    void setValue(bool newVal);
+    BoolValue *clone();
     void print() const;
-
 };

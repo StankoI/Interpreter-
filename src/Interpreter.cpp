@@ -1,8 +1,12 @@
-#include "commandInterpreter.hpp"
+#include "Interpreter.hpp"
 #include <sstream>
+#include <memory>
 
-CommandInterpreter::CommandInterpreter()
+Interpreter::Interpreter()
 {
+    // std::unique_ptr<SetCommand> SET = std::make_unique<SetCommand>();
+    //! how to add element in this->commands;
+
     SetCommand* SET = new SetCommand;
     PrintCommand* PRINT = new PrintCommand;
     ReadCommand* READ = new ReadCommand;
@@ -12,12 +16,12 @@ CommandInterpreter::CommandInterpreter()
     //! maybe needs a destructor 
 }
 
-void CommandInterpreter::addCommand(std::string key, Command* value)
+void Interpreter::addCommand(std::string key, Command* value)
 {
     this->commands[key] = value;
 }
 
-void CommandInterpreter::readFile(std::istream& is)
+void Interpreter::readFile(std::istream& is)
 {
     Parser object;
     
