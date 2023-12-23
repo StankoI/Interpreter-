@@ -141,8 +141,3 @@ ExprIf::~ExprIf()
     delete iftrue;
     delete iffalse;
 }
-
-//! ot tuka nadolu vsichko trqbva da ide v parser
-
-// Expression* parseExpression(Tokenizer &tokens);
-

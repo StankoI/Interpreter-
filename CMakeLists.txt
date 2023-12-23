@@ -11,9 +11,18 @@ add_executable(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Parser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/StringValue.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Tokinezer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/commandInterpreter.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/printCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/setCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/readCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/EvalFunctions.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/ExprTreeBuilding.cpp
+    
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test.stuck ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+
+add_subdirectory(test)

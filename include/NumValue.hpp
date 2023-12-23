@@ -2,17 +2,16 @@
 #include "BaseValue.hpp"
 #include <fstream>
 
-//Клас NumValue който представлява променливи от тип double, наследник на BaseValue
+// Клас NumValue който представлява променливи от тип double, наследник на BaseValue
 class NumValue : public BaseValue
 {
-    private:
+private:
     double value;
 
-    public:
-
+public:
     NumValue(double _value);
 
-    NumValue* clone();
+    NumValue *clone();
 
     double getValue() const;
 
@@ -22,4 +21,3 @@ class NumValue : public BaseValue
 
     void print() const;
 };
-
