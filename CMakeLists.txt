@@ -15,6 +15,7 @@ add_executable(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/printCommand.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/setCommand.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/readCommand.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/funcCommand.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/EvalFunctions.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/ExprTreeBuilding.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/setArrayFunctions.cpp

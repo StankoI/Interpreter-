@@ -8,8 +8,8 @@
 
 class Tokenizer
 {
-    public:
-    enum Token_type{OPEN_BRACK, CLOSE_BRACK, OPERATOR, NUMBER, CHAR ,STR, STOP_SYMBOL, IF, THEN, ELSE};
+public:
+    enum Token_type{OPEN_BRACK, CLOSE_BRACK, OPERATOR, NUMBER, CHAR ,STR, STOP_SYMBOL, IF, THEN, ELSE, FUNC};
 
     struct Token
     {
@@ -24,12 +24,13 @@ class Tokenizer
     Token getNextToken();
     Token peekToken();
 
-    private:
+private:
     std::istream &in;
     Token *peeked;
     
 };
 
+//SpaceRemover need new name like removingSpaces and to be mooved somewhere else
 void SpaceRemover(std::istream &is, char &next);
 
 std::istream& operator>>(std::istream&, Tokenizer::Token&);

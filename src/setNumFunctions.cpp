@@ -46,8 +46,6 @@ NumValue *setNumHelper(std::istream &is, char &next, Parser &object)
         return new NumValue(t->eval());
     }
 
-    //! ako se scupi nqkude tuk e problema
-
     expression.seekg(0);
 
     next = is.peek();

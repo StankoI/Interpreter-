@@ -37,6 +37,9 @@ std::istream& operator>>(std::istream& is, Tokenizer::Token& t)
     case '<':
     case '=':
     case '^':
+    case '&':
+    case '|':
+    case '%':
         t.type = Tokenizer::OPERATOR;
         t.symbol = next;
         is.get();
@@ -64,14 +67,40 @@ std::istream& operator>>(std::istream& is, Tokenizer::Token& t)
     while( next != ' ' && next != '(' && next != ')' && next != '+' 
         && next != '-' && next != '/' && next != ';'
         && next != '*' && next != '<' && next != '>'
-        && next != '=' && next != '^')
+        && next != '=' && next != '^' && next != '%'
+        && next != '|' && next != '&')
     {
+        if(next == '[')
+        {
+            while(next != ']')
+            {
+                keyWordTemp += next;
+                is.get();
+                next = is.peek();
+            }
+        }
         keyWordTemp += next;
         is.get();
         next = is.peek();
     }
 
     t.keyword = keyWordTemp;
+
+    bool hasSquareBrack = false;   //!tup kod 
+    for(int i = 0; keyWordTemp[i] != '\0'; i++)
+    {
+        if(keyWordTemp[i] == '[')
+        {
+            hasSquareBrack = true;
+        }
+    }
+
+    //FUNC type name[par]
+    if(hasSquareBrack)
+    {
+        t.type = Tokenizer::FUNC;
+        return is;
+    }
     
     //IF
     if(t.keyword == "if")
@@ -152,6 +181,9 @@ std::ifstream& operator>>(std::ifstream& is, Tokenizer::Token& t)
     case '<':
     case '=':
     case '^':
+    case '|':
+    case '&':
+    case '%':
         t.type = Tokenizer::OPERATOR;
         t.symbol = next;
         is.get();
@@ -179,16 +211,42 @@ std::ifstream& operator>>(std::ifstream& is, Tokenizer::Token& t)
     while( next != ' ' && next != '(' && next != ')' && next != '+' 
         && next != '-' && next != '/' && next != ';'
         && next != '*' && next != '<' && next != '>'
-        && next != '=' && next != '^')
+        && next != '=' && next != '^' && next != '%'
+        && next != '|' && next != '&')
     {
+        if(next == '[')
+        {
+            while(next != ']')
+            {
+                keyWordTemp += next;
+                is.get();
+                next = is.peek();
+            }
+        }
         keyWordTemp += next;
         is.get();
         next = is.peek();
     }
     // is >> t.keyword;
-    t.keyword = keyWordTemp;
+    // t.keyword = keyWordTemp;
 
     t.keyword = keyWordTemp;
+
+    bool hasSquareBrack = false;   //!tup kod 
+    for(int i = 0; keyWordTemp[i] != '\0'; i++)
+    {
+        if(keyWordTemp[i] == '[')
+        {
+            hasSquareBrack = true;
+        }
+    }
+
+    //FUNC type name[par]
+    if(hasSquareBrack)
+    {
+        t.type = Tokenizer::FUNC;
+        return is;
+    }
     
     //IF
     if(t.keyword == "if")

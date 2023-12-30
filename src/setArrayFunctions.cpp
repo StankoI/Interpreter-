@@ -25,6 +25,7 @@ ArrayValue *setArrayHelper(std::istream &is, char &next, Parser &object)
             StringValue *el = new StringValue(exp);
             // todo delete
             arrayVal->addElement(el);
+            delete el;
             
             next = is.peek();
         }
@@ -40,11 +41,14 @@ ArrayValue *setArrayHelper(std::istream &is, char &next, Parser &object)
             BoolValue *resVal = new BoolValue(RPNeval(RPexpression, object));
             // todo delete
             arrayVal->addElement(resVal);
+            delete resVal;
             next = is.peek();
         }
         else if (next == '[')
         {
-            arrayVal->addElement(setArrayHelper(is, next, object));
+            ArrayValue* resVal = setArrayHelper(is, next, object);
+            arrayVal->addElement(resVal);
+            delete resVal;
            
             is.get(); //* skip ','
             next = is.peek();
@@ -61,6 +65,7 @@ ArrayValue *setArrayHelper(std::istream &is, char &next, Parser &object)
             NumValue *resVal = new NumValue(RPNeval(RPexpression, object));
             // todo delete
             arrayVal->addElement(resVal);
+            delete resVal;
             next = is.peek();
         }
     }

@@ -3,20 +3,10 @@
 #include <sstream>
 #include <stack>
 
-//todo getKey and removeEqualSign function need own file 
-std::string getKey(std::istream& is, char& next)
-{
-    std::string tempKey;
-    while (next != ' ' && next != '=' && next != '\n' && next != ';')
-    {
-        tempKey += next;
-        is.get();
-        next = is.peek();
-    }
-    return tempKey;
-}
+// todo getKey and removeEqualSign function need own file
 
-void removeEqualSign(std::istream& is,char& next)
+
+void removeEqualSign(std::istream &is, char &next)
 {
     while (next != '=')
     {
@@ -24,7 +14,7 @@ void removeEqualSign(std::istream& is,char& next)
         next = is.peek();
     }
 
-    is.get(); 
+    is.get();
     next = is.peek();
 }
 
@@ -42,7 +32,7 @@ std::string infixToRPN(std::istream &in)
         {
             output.push_back(t);
         }
-        else if (t.type == Tokenizer::STR)
+        else if (t.type == Tokenizer::STR || t.type == Tokenizer::FUNC)
         {
             output.push_back(t);
         }
@@ -93,7 +83,43 @@ std::string infixToRPN(std::istream &in)
     return rpn.str() + ";";
 }
 
-double RPNeval(std::istream &in, Parser& object)
+
+double funcEval(Tokenizer::Token &t, Parser& object)  //!kod pod vsqkakva kritika
+{
+    std::stringstream expr(t.keyword);
+    char newNext = expr.peek();
+    std::string key = getKey(expr, newNext);
+    Parser::Func *tmp = object.findFunction(key);
+    std::string parameter = getPar(t.keyword);
+    parameter += ';';
+    std::stringstream parExpr(parameter);
+    
+    std::stringstream RPNexpr(infixToRPN(parExpr));
+    double parValue = RPNeval(RPNexpr,object);
+
+    // delete tmp->variable->value;
+    
+    // tmp->variable->value = new NumValue(parValue);
+    //!
+    Parser::Node* existingPar = object.find(tmp->varible);
+    if(existingPar)
+    {
+        existingPar->value = new NumValue(parValue);
+    }
+    else
+    {
+        Parser::Node* var = new Parser::Node{tmp->varible,new NumValue(parValue),Parser::NUM};
+        object.arr.push_back(var);
+    }
+    //!
+    std::stringstream bodyExpr(tmp->body);
+
+    Expression* res = parseExpression(bodyExpr,object);
+
+    return res->eval();
+}
+
+double RPNeval(std::istream &in, Parser &object)
 {
     Tokenizer::Token t;
     in >> t;
@@ -102,7 +128,7 @@ double RPNeval(std::istream &in, Parser& object)
 
     while (t.type != Tokenizer::STOP_SYMBOL)
     {
-        assert(t.type == Tokenizer::NUMBER || t.type == Tokenizer::OPERATOR || t.type == Tokenizer::STR);
+        assert(t.type == Tokenizer::NUMBER || t.type == Tokenizer::OPERATOR || t.type == Tokenizer::STR || t.type == Tokenizer::FUNC);
         if (t.type == Tokenizer::NUMBER)
         {
             NumValue *ktmp = dynamic_cast<NumValue *>(t.value);
@@ -131,6 +157,11 @@ double RPNeval(std::istream &in, Parser& object)
                 s.push(tmp->getValue());
             }
             // s.push(t.value);
+        }
+        else if (t.type == Tokenizer::FUNC)
+        {
+            double res = funcEval(t,object);
+            s.push(res);
         }
         else
         { // t.type == Tokenizer::OPERATOR

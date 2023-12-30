@@ -30,8 +30,16 @@ std::function<double(double, double)> fn(char c)
         { return x == y; };
     case '^':
         return [](double x, double y) -> double
-        {   //std::cout << " test: "<< x << " " << y << " " << pow(x,y);
-            return std::pow(x,y);};
+        { return std::pow(x,y);};
+    case '|':
+        return [](double x, double y) -> double
+        { return x || y; };
+    case '&':
+        return [](double x, double y) -> double
+        { return x && y; };
+    case '%':
+        return [](int x, int y) -> int
+        { return x % y; };
     default:
         assert(false);
     }
@@ -49,10 +57,13 @@ int priority(char op)
         return 10;
     case '*':
     case '/':
+    case '%':
         return 20;
     case '<':
     case '>':
     case '=':
+    case '|':
+    case '&':
         return 5;
     case '^':
         return 30;

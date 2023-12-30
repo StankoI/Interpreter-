@@ -4,21 +4,10 @@
 
 Interpreter::Interpreter()
 {
-    // std::unique_ptr<SetCommand> SET = std::make_unique<SetCommand>();
-    //! how to add element in this->commands;
-
-    SetCommand* SET = new SetCommand;
-    PrintCommand* PRINT = new PrintCommand;
-    ReadCommand* READ = new ReadCommand;
-    this->commands["set"] = SET;
-    this->commands["print"] = PRINT;
-    this->commands["read"] = READ;
-    //! maybe needs a destructor 
-}
-
-void Interpreter::addCommand(std::string key, Command* value)
-{
-    this->commands[key] = value;
+    this->commands["set"] = std::make_unique<SetCommand>();
+    this->commands["print"] = std::make_unique<PrintCommand>();
+    this->commands["read"] = std::make_unique<ReadCommand>();
+    this->commands["func"] = std::make_unique<FuncCommand>();
 }
 
 void Interpreter::readFile(std::istream& is)
@@ -35,7 +24,7 @@ void Interpreter::readFile(std::istream& is)
         is >> command;
         next = is.peek();
 
-        auto it = this->commands.find(command);  //! sorry za auto 
+        auto it = this->commands.find(command);  
         if(it != this->commands.end())
         {
             it->second->interpret(is,next,object);

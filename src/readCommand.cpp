@@ -15,6 +15,7 @@ void ReadCommand::interpret(std::istream& is, char& next, Parser& object)
         throw "this words are SPECIAL";
     }
 
+    //!!!това не бачка;
     Parser::Node* existingNode = object.find(tempKey); 
     if(existingNode != nullptr)
     {
@@ -39,11 +40,6 @@ void ReadCommand::interpret(std::istream& is, char& next, Parser& object)
     char newNext = exprestion.peek(); 
 
     SpaceRemover(exprestion, newNext);
-    //unordered_set<char,std::function<void(exprestion, newNext, temp,object)>> symbols -> 
-    //auto symbol = symbols.find(newNext)
-    //if (symbol != symbols.end())
-    // symbol.second->(exprestion, newNext, temp,object)
-    //void functionBool(...){ BoolSetter a; a.setBool(...) } 
 
     if (newNext == ':')
     {
