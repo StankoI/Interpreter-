@@ -134,7 +134,7 @@ double RPNeval(std::istream &in, Parser &object)
             NumValue *ktmp = dynamic_cast<NumValue *>(t.value);
             s.push(ktmp->getValue());
         }
-        else if (t.type == Tokenizer::STR) //!
+        else if (t.type == Tokenizer::STR) 
         {
             bool found = 0;
             for (std::size_t i = 0; i < object.arr.size(); i++)
@@ -143,7 +143,6 @@ double RPNeval(std::istream &in, Parser &object)
                 {
                     assert(object.arr[i]->type == Parser::NUM);
                     t.value = object.arr[i]->value;
-                    //! eventualno problem sus smesena pamet
                     found = 1;
                 }
             }
@@ -156,7 +155,6 @@ double RPNeval(std::istream &in, Parser &object)
                 NumValue *tmp = dynamic_cast<NumValue *>(t.value);
                 s.push(tmp->getValue());
             }
-            // s.push(t.value);
         }
         else if (t.type == Tokenizer::FUNC)
         {
@@ -164,7 +162,7 @@ double RPNeval(std::istream &in, Parser &object)
             s.push(res);
         }
         else
-        { // t.type == Tokenizer::OPERATOR
+        { 
             assert(s.size() > 1);
             double right = s.top();
             s.pop();

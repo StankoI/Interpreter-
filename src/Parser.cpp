@@ -3,14 +3,13 @@
 #include <stack>
 #include <cassert>
 #include <functional>
-//todo change the name of this class
+
 Parser::Parser()
 {
     this->arr.push_back(new Node{"AZIS",new NumValue(69),Parser::NUM});
     this->arr.push_back(new Node{"GEORGI",new NumValue(420),Parser::NUM});
     this->arr.push_back(new Node{"true",new BoolValue(1),Parser::BOOL});
     this->arr.push_back(new Node{"false",new BoolValue(0),Parser::BOOL});
-
 
     this->specialWords.insert("if");
     this->specialWords.insert("then");

@@ -9,6 +9,7 @@
 #include <vector>
 #include <memory>
 
+/// Клас Interpreter, интерпретира файл с код написан на Stuck. Съдиржа unordered_map с команди които да разпознава и интерпретира
 class Interpreter
 {
 private:

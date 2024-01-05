@@ -2,7 +2,7 @@
 #include "BaseValue.hpp"
 #include <vector>
 
-// Клас ArrayValue който представлява променливи от тип std::vector<BaseValue*>, наследник на BaseValue
+/// Клас ArrayValue който представлява променливи от тип std::vector<BaseValue*>, наследник на BaseValue
 class ArrayValue : public BaseValue
 {
 private:

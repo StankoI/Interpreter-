@@ -1,6 +1,6 @@
 #pragma once
 #include "setExistingNodeFunction.hpp"
-
+/// Интерфейсен клас за команди който се наследява от всички команди за интерпретиране на езика
 class Command
 {
 public:

@@ -1,7 +1,7 @@
 #pragma once
 #include "BaseValue.hpp"
 
-// Клас BoolValue който представлява променливи от тип bool, наследник на BaseValue
+/// Клас BoolValue който представлява променливи от тип bool, наследник на BaseValue
 class BoolValue : public BaseValue
 {
 private:

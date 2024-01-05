@@ -168,7 +168,7 @@ TEST_CASE("Test Tree Evaluation")
     Parser::Node* b = new Parser::Node{"b",new NumValue(5),Parser::NUM};
     Parser::Node* c = new Parser::Node{"c",new NumValue(9),Parser::NUM};
     Parser::Node* d = new Parser::Node{"d",new NumValue(1),Parser::NUM};
-    Parser::Func* f1 = new Parser::Func{"square",Parser::FUNC,"(x*x);","x"};
+    Parser::Func* f1 = new Parser::Func{"square","(x*x);","x"};
     par.functions.push_back(f1);
     par.arr.push_back(a);
     par.arr.push_back(b);
@@ -212,6 +212,17 @@ TEST_CASE("TESTING EVAL FUNCTION")
     CHECK(opfn(5,5) == 1);
     opfn = fn('=');
     CHECK(opfn(5,4) == 0);
+    opfn = fn('|');
+    CHECK(opfn(1,0) == 1);
+    opfn = fn('|');
+    CHECK(opfn(0,0) == 0);
+    opfn = fn('&');
+    CHECK(opfn(1,0) == 0);
+    opfn = fn('&');
+    CHECK(opfn(1,1) == 1);
+    opfn = fn('%');
+    CHECK(opfn(5,4) == 1);
+    
 }
 
 TEST_CASE("TESTING FINDING FUNCTIONS AND VARIABLES THAT EXIST")
@@ -225,13 +236,12 @@ TEST_CASE("TESTING FINDING FUNCTIONS AND VARIABLES THAT EXIST")
     par.arr.push_back(b);
     par.arr.push_back(c);
     par.arr.push_back(d);
-    
 
     CHECK(par.find("b") != nullptr);
     CHECK(par.find("e") == nullptr);
 
-    Parser::Func* f1 = new Parser::Func{"f1",Parser::FUNC,"x^x","l"};
-    Parser::Func* f2 = new Parser::Func{"f2",Parser::FUNC,"x^x","l"};
+    Parser::Func* f1 = new Parser::Func{"f1","x^x","x"};
+    Parser::Func* f2 = new Parser::Func{"f2","x^x","x"};
 
     par.functions.push_back(f1);
     par.functions.push_back(f2);

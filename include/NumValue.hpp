@@ -2,7 +2,7 @@
 #include "BaseValue.hpp"
 #include <fstream>
 
-// Клас NumValue който представлява променливи от тип double, наследник на BaseValue
+/// Клас NumValue който представлява променливи от тип double, наследник на BaseValue
 class NumValue : public BaseValue
 {
 private:

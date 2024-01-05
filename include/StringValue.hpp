@@ -2,7 +2,7 @@
 #include "BaseValue.hpp"
 #include <string>
 
-// Клас StringValue който представлява променливи от тип std::string, наследник на BaseValue
+/// Клас StringValue който представлява променливи от тип std::string, наследник на BaseValue
 class StringValue : public BaseValue
 {
 private:

@@ -31,7 +31,7 @@ std::string getPar(std::string expr)
     return par;
 }
 
-double evalFunc(Tokenizer &tokens, Parser& object) //! tragichen kod
+double evalFunc(Tokenizer &tokens, Parser& object)
 {
     std::stringstream expr(tokens.peekToken().keyword);
     char newNext = expr.peek();
@@ -44,7 +44,10 @@ double evalFunc(Tokenizer &tokens, Parser& object) //! tragichen kod
 
     Expression *res = parseExpression(parExpr, object);
     
-    Parser scope(object);
+    // Parser scope(object);
+    Parser scope = object;
+    // scope = object;
+
     Parser::Node* existingPar = scope.find(tmp->varible);
     if(existingPar)
     {
@@ -53,10 +56,8 @@ double evalFunc(Tokenizer &tokens, Parser& object) //! tragichen kod
     else
     {
         Parser::Node* var = new Parser::Node{tmp->varible,new NumValue(res->eval()),Parser::NUM};
-        scope.arr.push_back(var);
+        scope.arr.insert(scope.arr.begin(), var);
     }
-
-    // object.arr.push_back(tmp->variable);
 
     std::stringstream bodyExpr(tmp->body);
 
@@ -135,14 +136,11 @@ Expression *parseIfExpression(Tokenizer &tokens, Parser &object)
 {
     assert(tokens.getNextToken().type == Tokenizer::IF);
 
-    // std::cout << "keyword: " << tokens.peekToken().type;
-
     Expression *cond = parseExpression(tokens, object);
 
     assert(tokens.getNextToken().type == Tokenizer::THEN);
 
     
-    //!!!tuka ako se napravi proverka za iftrue = true da prekusva ocenqwaneto moje da se opravi
     if(cond->eval())
     {
         Expression *iftrue = parseExpression(tokens, object);
@@ -159,7 +157,6 @@ Expression *parseIfExpression(Tokenizer &tokens, Parser &object)
     {
         Expression *iftrue = nullptr;
 
-        // std::cout << tokens.peekToken().type;
         while(tokens.peekToken().type != Tokenizer::ELSE)
         {
             tokens.getNextToken();
@@ -169,39 +166,29 @@ Expression *parseIfExpression(Tokenizer &tokens, Parser &object)
 
         Expression *iffalse = parseExpression(tokens, object);
 
-        // tokens.getNextToken();
-
         return new ExprIf(cond, iftrue, iffalse);
     }
-    //!
+    
     Expression *iftrue = parseExpression(tokens, object);
 
     assert(tokens.getNextToken().type == Tokenizer::ELSE);
 
     Expression *iffalse = parseExpression(tokens, object);
 
-    // std::cout << "token: " << tokens.peekToken().keyword;
-
     return new ExprIf(cond, iftrue, iffalse);
 }
 
 Expression *parseParExpression(Tokenizer &tokens, Parser &object)
 {
-    //(<left subexpr> <ope> <right subex>)
-
     assert(tokens.getNextToken().type == Tokenizer::OPEN_BRACK);
 
-    //<left subexpr> <ope> <right subex>)
     Expression *left = parseExpression(tokens, object);
 
-    //<ope> <right subex>)
     assert(tokens.peekToken().type == Tokenizer::OPERATOR);
     char op = tokens.getNextToken().symbol;
 
-    //<right subex>)
     Expression *right = parseExpression(tokens, object);
 
-    //)
     assert(tokens.getNextToken().type == Tokenizer::CLOSE_BRACK);
 
     return new ExprArith(op, left, right);

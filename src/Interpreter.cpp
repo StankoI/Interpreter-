@@ -32,6 +32,7 @@ void Interpreter::readFile(std::istream& is)
         else
         {
             std::cout << "this command does not exist\n";
+            throw "this command does not exist";
         }
     }
 }

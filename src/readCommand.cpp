@@ -19,8 +19,9 @@ void ReadCommand::interpret(std::istream& is, char& next, Parser& object)
     Parser::Node* existingNode = object.find(tempKey); 
     if(existingNode != nullptr)
     {
-        setExistingNode(existingNode,is,next,object);
-        return;
+        // setExistingNode(existingNode,is,next,object);
+        throw "can read existing node";
+        // return;
     }
     //!
 

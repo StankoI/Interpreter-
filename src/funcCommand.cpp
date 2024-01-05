@@ -6,9 +6,9 @@ void FuncCommand::interpret(std::istream &is, char &next, Parser &object)
     SpaceRemover(is, next);
 
     Parser::Func *temp = new Parser::Func;
-    temp->type = Parser::FUNC;
+    // temp->type = Parser::FUNC;
 
-    std::string tempKey = getKey(is, next); //! moje da se subere na edin red
+    std::string tempKey = getKey(is, next); 
     temp->key = tempKey;
     SpaceRemover(is, next);
 

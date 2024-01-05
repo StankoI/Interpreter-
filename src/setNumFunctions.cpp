@@ -11,7 +11,7 @@ NumValue *setNumHelper(std::istream &is, char &next, Parser &object)
 {
     std::string exp;
     getline(is, exp);
-    // if (exp[0] == '-') //! za rabota sus otricatelni chisla
+    // if (exp[0] == '-') 
     // {
     //     exp = "0" + exp;
     // }

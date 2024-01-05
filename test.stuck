@@ -1,3 +1,43 @@
-func fact[y] = if (y = 0) then 1 else (y * fact[(y-1)]);
-print fact[5];
-print "Hello";
+print " ";
+print "HELLO WORLD, this is example of how STUCK work, lets start";
+
+print "this is how variables are set and print";
+
+set a = 5;
+set b = "hello";
+set c = :0;
+set d = [1,2,3,];
+
+print a;
+print b;
+print c;
+print d;
+
+print "you can also use command read to set variable with consol input";
+print "give a expression ";
+
+read e;
+print e;
+
+print "functions are defined with command func";
+func cub[x] = ((x*x)*x);
+print cub[3];
+
+print "functions can use variables that are set in global scope";
+func something[y] = ((y+a)*2);
+print something[2];
+
+print "STUCK also have (it then else) operator";
+
+set var = if(a > 6) then 69 else 420;
+print var;
+
+print "functions also work with recursion!!!";
+print "here is a function that calculate fibonacci";
+
+func fibonacci[n] = if ((n < 1)|(n = 1)) then n else (fibonacci[(n-1)] + fibonacci[(n-2)]);
+set result = fibonacci[11];
+print result;
+
+set STUCK = "the best programing langlage!!!";
+print STUCK;
